@@ -19,9 +19,11 @@ class ActionLibrary:
         data = respone.json()["current"]["temperature_2m"]
         print(f"Amaravati's temprature: {data} degree Celcius")
 
+    @staticmethod
     def open_firefox():
         subprocess.run(["firefox", "&"], shell=True)
 
+    @staticmethod
     def github_search(url="https://duckduckgo.com/?t=ffab&q="):
         query = (
             "https://duckduckgo.com/?t=ffab&q="
