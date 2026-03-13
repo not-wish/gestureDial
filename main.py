@@ -5,33 +5,10 @@ import json
 import subprocess
 import pyperclip
 import webbrowser
+import os
 
 ADDRESS = "D5:4D:D9:7B:CA:75"
 CHAR_UUID = "2A56"
-
-
-class ActionLibrary:
-    @staticmethod
-    def temperatureInfo():
-        respone = requests.get(
-            "https://api.open-meteo.com/v1/forecast?latitude=16.514&longitude=80.516&current=temperature_2m&timezone=auto&forecast_days=1"
-        )
-        data = respone.json()["current"]["temperature_2m"]
-        print(f"Amaravati's temprature: {data} degree Celcius")
-
-    @staticmethod
-    def open_firefox():
-        subprocess.run(["firefox", "&"], shell=True)
-
-    @staticmethod
-    def github_search(url="https://duckduckgo.com/?t=ffab&q="):
-        query = (
-            "https://duckduckgo.com/?t=ffab&q="
-            + "site:github.com"
-            + "+"
-            + pyperclip.paste()
-        )
-        webbrowser.open_new_tab(query)
 
 
 def getDataMap():
@@ -45,8 +22,15 @@ def data_handler(combo: int):
     global dataMap
     if str(combo) in dataMap:
         print(f"combo : {dataMap[str(combo)]}")
-        func = getattr(ActionLibrary, dataMap[str(combo)])
-        func()
+        # func = getattr(ActionLibrary, dataMap[str(combo)])
+        # func()
+        script_path = f"./actions/{dataMap[str(combo)]}.py"
+        if os.path.exists(script_path):
+            subprocess.Popen(["python3", script_path])
+        else:
+            print("Script doesn't exist or wrong name!")
+    else:
+        print("Gesture is not mapped to anything yet.")
 
 
 def notification_handler(sender, data):
@@ -71,6 +55,7 @@ async def main():
         await client.start_notify(CHAR_UUID, notification_handler)
 
         while True:
+            dataMap = getDataMap()
             await asyncio.sleep(1)
 
 
