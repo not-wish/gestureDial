@@ -1,7 +1,13 @@
-# GestureDial
+!!! Work In Progress !!!
 
-A simple BLE listener and data handler made in python.
+# Gesture Dial
 
-# Installation / How to Use
+GestureDial is an open-source, cross-platform automation platform that transforms wearable BLE gestures into programmable system actions and workflows.
 
-Soon
+# Developers
+
+1. [Vishesh Agarwal](https://github.com/not-wish)
+
+# Milestones
+
+02-07-2026 : Started the core planning and work 
